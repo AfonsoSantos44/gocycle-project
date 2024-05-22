@@ -1,4 +1,4 @@
-package isel.sisinf.jpa.repo;
+package isel.sisinf.jpa.dal.repo;
 
 public interface IRespository<T,TK>{
     T findById(TK id);

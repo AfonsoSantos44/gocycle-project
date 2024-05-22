@@ -1,12 +1,12 @@
-package isel.sisinf.jpa;
+package isel.sisinf.jpa.dal.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class DispositivoGPS
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String numeroSerie;
     private double latitude;

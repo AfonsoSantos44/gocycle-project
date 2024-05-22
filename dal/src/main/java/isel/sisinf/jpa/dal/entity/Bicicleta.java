@@ -1,13 +1,12 @@
-package isel.sisinf.jpa;
+package isel.sisinf.jpa.dal.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Bicicleta
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String identificador;
     private int pesoGramas;

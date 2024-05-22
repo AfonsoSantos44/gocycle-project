@@ -1,6 +1,6 @@
-package isel.sisinf.jpa.repo;
+package isel.sisinf.jpa.dal.repo;
 
-import isel.sisinf.jpa.Loja;
+import isel.sisinf.jpa.dal.entity.Loja;
 
 
 public interface ILojaRepo extends IRespository<Loja, Long>{
