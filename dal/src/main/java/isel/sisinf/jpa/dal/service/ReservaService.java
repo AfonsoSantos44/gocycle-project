@@ -1,19 +1,43 @@
 package isel.sisinf.jpa.dal.service;
 
+import isel.sisinf.jpa.dal.entity.Dal;
+import isel.sisinf.model.dto.ReservaDTO;
+import java.util.List;
+
 public class ReservaService
 {
-    public void createReserva()
+    private static Dal dal;
+
+    public ReservaService()
     {
-        // TODO implement here
+        this.dal = new Dal();
     }
 
-    public void cancelReserva()
+    public static void createBooking(ReservaDTO reservaDTO)
     {
-        // TODO implement here
+        dal.createBooking(reservaDTO);
+        System.out.println("Booking created successfully!");
     }
 
-    public void getReserva()
+    public void cancelBooking(String numeroReserva) {
+        try {
+            dal.cancelBooking(numeroReserva);
+            System.out.println("Booking canceled successfully!");
+        } catch (Exception e) {
+            System.err.println("Error canceling booking: " + e.getMessage());
+        }
+    }
+
+    public List<ReservaDTO> obtainBookings()
     {
-        // TODO implement here
+        try
+        {
+            return dal.listBookings();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error listing bookings: " + e.getMessage());
+            return null;
+        }
     }
 }

@@ -24,7 +24,15 @@ SOFTWARE.
 package isel.sisinf.ui;
 
 import isel.sisinf.jpa.dal.entity.Dal;
+import isel.sisinf.jpa.dal.service.BicicletaService;
+import isel.sisinf.jpa.dal.service.ClienteService;
+import isel.sisinf.jpa.dal.service.ReservaService;
+import isel.sisinf.model.dto.BicicletaDTO;
+import isel.sisinf.model.dto.ReservaDTO;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 import java.util.HashMap;
 
@@ -146,44 +154,123 @@ class UI
     private static final int TAB_SIZE = 24;
 
     private void createCostumer() {
-        // TODO
-        System.out.println("createCostumer()");
-    }
-  
-    private void listExistingBikes()
-    {
-        // TODO
-        System.out.println("listExistingBikes()");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter customer name:");
+        String name = scanner.nextLine();
+        System.out.println("Enter customer address:");
+        String address = scanner.nextLine();
+        System.out.println("Enter customer email:");
+        String email = scanner.nextLine();
+        System.out.println("Enter customer phone number:");
+        String phone = scanner.nextLine();
+
+        ClienteService clienteService = new ClienteService();
+        clienteService.createClient(name, address, email, phone);
+
+        System.out.println("Customer created successfully!");
     }
 
+    private void listExistingBikes() {
+        List<BicicletaDTO> bikes = BicicletaService.listBikes();
+        if (bikes != null) {
+            System.out.println("Bikes:");
+            for (BicicletaDTO bike : bikes) {
+                System.out.println("Identifier: " + bike.getIdentificador());
+                System.out.println("Model: " + bike.getModelo());
+                System.out.println("Brand: " + bike.getMarca());
+                System.out.println("Number of speeds: " + bike.getNumeroVelocidades());
+                System.out.println("State: " + bike.getEstado());
+                System.out.println("Weight: " + bike.getPesoGramas() + " grams");
+                System.out.println("Max speed: " + bike.getVelocidadeMaxima() + " km/h");
+                if (bike.getAutonomia() != 0) {
+                    System.out.println("Autonomy: " + bike.getAutonomia() + " km");
+                }
+                System.out.println();
+            }
+        } else {
+            System.out.println("Error listing bikes");
+        }
+    }
     private void checkBikeAvailability()
     {
-        // TODO
-        System.out.println("checkBikeAvailability()");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter bike identifier:");
+        String bikeIdentifier = scanner.nextLine();
+
+        // Create a BicicletaDTO object from the bikeIdentifier
+        BicicletaDTO bike = new BicicletaDTO(bikeIdentifier);
+
+        // Check bike availability
+        boolean isAvailable = BicicletaService.checkBikeAvailability(bike);
+
+        if (isAvailable) {
+            System.out.println("Bike is available for rental.");
+        } else {
+            System.out.println("Bike is not available for rental.");
+        }
 
     }
 
     private void obtainBookings() {
-        // TODO
-        System.out.println("obtainBookings()");
+        ReservaService ReservaService = new ReservaService();
+
+        List<ReservaDTO> bookings = ReservaService.obtainBookings();
+        if (bookings != null) {
+            for (ReservaDTO booking : bookings) {
+                System.out.println(booking);
+            }
+        }else{
+            System.out.println("Error listing bookings");
+        }
     }
 
-    private void makeBooking()
-    {
-        // TODO
-        System.out.println("makeBooking()");
-        
+    private void makeBooking() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt the user to input booking details
+        System.out.println("Enter customer id:");
+        String customerName = scanner.nextLine();
+        System.out.println("Enter bike identifier:");
+        String bikeIdentifier = scanner.nextLine();
+        System.out.println("Enter start date (yyyy-MM-dd HH:mm:ss):");
+        LocalDateTime startDate = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println("Enter end date (yyyy-MM-dd HH:mm:ss):");
+        LocalDateTime endDate = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        // Create a ReservaDTO object with the provided details
+        ReservaDTO reservaDTO = new ReservaDTO();
+        reservaDTO.setNumeroCliente(customerName);
+        reservaDTO.setNumeroBicicleta(bikeIdentifier);
+        reservaDTO.setDataInicio(startDate);
+        reservaDTO.setDataFim(endDate);
+
+        // Call the createBooking method with the ReservaDTO object
+        ReservaService.createBooking(reservaDTO);
+
+        System.out.println("Booking created successfully!");
     }
 
     private void cancelBooking()
     {
-        // TODO
-        System.out.println("cancelBooking");
-        
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter booking number:");
+        String bookingNumber = scanner.nextLine();
+
+        ReservaService reservaService = new ReservaService();
+        reservaService.cancelBooking(bookingNumber);
     }
     private void about()
     {
-        // TODO: Add your Group ID & member names
+        System.out.println("Group ID: 9");
+        System.out.println("Members:");
+        System.out.println("- Afonso Santos");
+        System.out.println("- Marcel Dabrowski");
+        System.out.println("- Tiago Neiva");
+
+
         System.out.println("DAL version:"+ Dal.version());
         System.out.println("Core version:"+ isel.sisinf.model.Core.version());
         
