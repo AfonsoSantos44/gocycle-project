@@ -28,16 +28,4 @@ public class ReservaService
         }
     }
 
-    public List<ReservaDTO> obtainBookings()
-    {
-        try
-        {
-            return dal.listBookings();
-        }
-        catch (Exception e)
-        {
-            System.err.println("Error listing bookings: " + e.getMessage());
-            return null;
-        }
-    }
 }

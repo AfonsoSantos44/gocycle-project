@@ -1,6 +1,7 @@
 package isel.sisinf.model.dto;
 
 public class ClienteDTO {
+    private int numeroCliente;
     private String nome;
     private String morada;
     private String enderecoEletronico;
@@ -10,6 +11,8 @@ public class ClienteDTO {
 
 
     // Getters
+
+    public int getNumeroCliente(){return numeroCliente;}
 
     public String getNome() {
         return nome;
@@ -36,6 +39,8 @@ public class ClienteDTO {
     }
 
     // Setters
+
+    public void setNumeroCliente(int numeroCliente){this.numeroCliente = numeroCliente;}
 
     public void setNome(String nome) {
         this.nome = nome;
