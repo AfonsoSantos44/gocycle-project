@@ -18,12 +18,11 @@ public class ClienteService {
     {
         Cliente cliente = convertToEntity(clienteDTO);
         ClientRepo.ClienteRepository.addCliente(cliente);
-        nextnumeroCliente++;
         System.out.println("Cliente adicionado com sucesso");
-
+        nextnumeroCliente++;
     }
 
     private Cliente convertToEntity(ClienteDTO dto) {
-        return new Cliente(nextnumeroCliente, dto.getNome(), dto.getMorada(), dto.getNumeroTelefone(), dto.getEnderecoEletronico(), dto.getNumeroCCPassaporte(), dto.getNacionalidade());
+        return new Cliente(nextnumeroCliente++, dto.getNome(), dto.getMorada(), dto.getNumeroTelefone(), dto.getEnderecoEletronico(), dto.getNumeroCCPassaporte(), dto.getNacionalidade());
     }
 }

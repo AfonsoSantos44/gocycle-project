@@ -18,8 +18,6 @@ public class ClientRepo{
     // use for write only
     public interface ClienteRepository {
 
-
-
          static void addCliente(Cliente cliente) {
             EntityManager em = Dal.getEntityManager();
             em.getTransaction().begin();
