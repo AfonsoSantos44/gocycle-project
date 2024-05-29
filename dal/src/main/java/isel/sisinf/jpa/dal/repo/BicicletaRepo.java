@@ -2,7 +2,12 @@ package isel.sisinf.jpa.dal.repo;
 
 import isel.sisinf.jpa.dal.entity.Bicicleta;
 import isel.sisinf.jpa.dal.entity.Dal;
+import isel.sisinf.model.dto.BicicletaDTO;
 import jakarta.persistence.EntityManager;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BicicletaRepo{
 
@@ -18,13 +23,14 @@ public class BicicletaRepo{
     // use for write only
     public interface BicicletaRepository {
 
-        static void addBicicleta(Bicicleta bicicleta) {
+        static List<Bicicleta> listBikes(){
             EntityManager em = Dal.getEntityManager();
-            em.getTransaction().begin();
-            em.persist(bicicleta);
-            em.getTransaction().commit();
+            List<Bicicleta> bikes = em.createQuery("SELECT b FROM Bicicleta b", Bicicleta.class).getResultList();
             em.close();
+            Collections.reverse(bikes);
+            return Collections.unmodifiableList(bikes);
         }
+
     }
 }
 

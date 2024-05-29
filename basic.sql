@@ -6,6 +6,7 @@ drop table if exists Cliente;
 drop table if exists Bicicleta;
 drop table if exists DispositivoGPS;
 drop table if exists Loja;
+drop table if exists Reserva;
 
 CREATE TABLE Cliente (
      NUMEROCLIENTE INT PRIMARY KEY,
@@ -19,20 +20,20 @@ CREATE TABLE Cliente (
 
 CREATE TABLE Bicicleta (
    identificador VARCHAR(255) NOT NULL PRIMARY KEY,
-   peso_gramas INT NOT NULL,
+   pesoGramas INT NOT NULL,
    modelo VARCHAR(255) NOT NULL,
    marca VARCHAR(255) NOT NULL,
-   numero_velocidades INT NOT NULL,
+   numeroVelocidades INT NOT NULL,
    estado VARCHAR(50) NOT NULL,
    autonomia INT,
-   velocidade_maxima INT
+   velocidadeMaxima INT
 );
 
 CREATE TABLE DispositivoGPS (
-    numero_serie VARCHAR(255) NOT NULL PRIMARY KEY,
+    numeroSerie VARCHAR(255) NOT NULL PRIMARY KEY,
     latitude DOUBLE PRECISION NOT NULL,
     longitude DOUBLE PRECISION NOT NULL,
-    percentagem_bateria INT NOT NULL
+    percentagemBateria INT NOT NULL
 );
 
 CREATE TABLE Loja (
@@ -40,18 +41,32 @@ CREATE TABLE Loja (
     gestor VARCHAR(255) NOT NULL,
     morada VARCHAR(255) NOT NULL,
     localidade VARCHAR(100) NOT NULL,
-    numero_telefone VARCHAR(20) NOT NULL,
-    endereco_eletronico VARCHAR(255) NOT NULL
+    numeroTelefone VARCHAR(20) NOT NULL,
+    enderecoEletronico VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Reserva (
-     numero_reserva VARCHAR(50) NOT NULL PRIMARY KEY,
-     data_inicio TIMESTAMP NOT NULL,
-     data_fim TIMESTAMP NOT NULL,
-     valor_pagar DOUBLE PRECISION NOT NULL
+     numeroReserva VARCHAR(50) NOT NULL PRIMARY KEY,
+     datainicio TIMESTAMP NOT NULL,
+     datafim TIMESTAMP NOT NULL,
+     valorPagar DOUBLE PRECISION NOT NULL
 );
 
 end;
 $$ Language 'plpgsql';
 commit;
+
+
+-- insert data to bicicleta
+INSERT INTO Bicicleta (identificador, pesogramas, modelo, marca, numerovelocidades, estado, autonomia, velocidadeMaxima) VALUES
+    ('BIKE001', 15000, 'Mountain Pro', 'BikeBrand', 21, 'Nova', 0, NULL),
+    ('BIKE002', 13500, 'City Cruiser', 'UrbanCycles', 7, 'Usada', 0, NULL),
+    ('BIKE003', 16000, 'Road Racer', 'Speedster', 18, 'Nova', 0, NULL),
+    ('BIKE004', 12500, 'Hybrid Elite', 'EcoWheels', 24, 'Nova', 0, NULL),
+    ('BIKE005', 18000, 'Electric Adventure', 'VoltBikes', 8, 'Nova', 50, 25),
+    ('BIKE006', 14000, 'Folding Mini', 'CompactRides', 6, 'Usada', 0, NULL),
+    ('BIKE007', 15500, 'Touring Expert', 'Traveler', 27, 'Nova', 0, NULL),
+    ('BIKE008', 13000, 'Single Speed', 'Simplicity', 1, 'Usada', 0, NULL),
+    ('BIKE009', 17500, 'Electric Commuter', 'ElectroRide', 5, 'Nova', 40, 20),
+    ('BIKE010', 12000, 'Kids Fun', 'TinyRiders', 3, 'Nova', 0, NULL);
 
