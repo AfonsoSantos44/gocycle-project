@@ -28,7 +28,9 @@ import isel.sisinf.jpa.dal.service.BicicletaService;
 import isel.sisinf.jpa.dal.service.ClienteService;
 import isel.sisinf.jpa.dal.service.ReservaService;
 import isel.sisinf.model.dto.BicicletaDTO;
+import isel.sisinf.model.dto.ClienteDTO;
 import isel.sisinf.model.dto.ReservaDTO;
+import org.glassfish.jaxb.core.v2.TODO;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -164,9 +166,23 @@ class UI
         String email = scanner.nextLine();
         System.out.println("Enter customer phone number:");
         String phone = scanner.nextLine();
+        System.out.println("Enter customer numero do CC ou Passaporte:");
+        String numeroCCPassaporte = scanner.nextLine();
+        System.out.println("Enter customer nacionalidade:");
+        String nacionalidade = scanner.nextLine();
+
+
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setNome(name);
+        clienteDTO.setMorada(address);
+        clienteDTO.setEnderecoEletronico(email);
+        clienteDTO.setNumeroTelefone(phone);
+        clienteDTO.setNumeroCCPassaporte(numeroCCPassaporte);
+        clienteDTO.setNacionalidade(nacionalidade);
+
 
         ClienteService clienteService = new ClienteService();
-        clienteService.createClient(name, address, email, phone);
+        clienteService.createClient(clienteDTO);
 
         System.out.println("Customer created successfully!");
     }
@@ -214,16 +230,7 @@ class UI
     }
 
     private void obtainBookings() {
-        ReservaService ReservaService = new ReservaService();
-
-        List<ReservaDTO> bookings = ReservaService.obtainBookings();
-        if (bookings != null) {
-            for (ReservaDTO booking : bookings) {
-                System.out.println(booking);
-            }
-        }else{
-            System.out.println("Error listing bookings");
-        }
+        //TODO()
     }
 
     private void makeBooking() {

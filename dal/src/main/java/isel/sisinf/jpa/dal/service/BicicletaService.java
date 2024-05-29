@@ -19,12 +19,7 @@ public class BicicletaService
     }
 
     public static List<BicicletaDTO> listBikes() {
-        try {
-            return dal.listBikes();
-        } catch (SQLException e) {
-            System.err.println("Error listing bikes: " + e.getMessage());
-            return null;
-        }
+        return dal.listBikes();
     }
 
 

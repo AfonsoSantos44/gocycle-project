@@ -1,25 +1,32 @@
 package isel.sisinf.jpa.dal.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 @Entity
-public class Cliente
-{
+@Table(name = "Cliente")
+public class Cliente {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int numeroCliente;
     private String nome;
     private String morada;
-    private String enderecoEletronico;
-    private String numeroTelefone;
+    private String telefone;
+    private String email;
     private String numeroCCPassaporte;
     private String nacionalidade;
 
-    public void setId(Long id) {
-        this.id = id;
+    public Cliente(int numeroCliente, String nome, String morada, String telefone, String email, String numeroCCPassaporte, String nacionalidade) {
+        this.numeroCliente = numeroCliente;
+        this.nome = nome;
+        this.morada = morada;
+        this.telefone = telefone;
+        this.email = email;
+        this.numeroCCPassaporte = numeroCCPassaporte;
+        this.nacionalidade = nacionalidade;
     }
 
-    public Long getId() {
-        return id;
+    public Cliente() {
     }
-
 }

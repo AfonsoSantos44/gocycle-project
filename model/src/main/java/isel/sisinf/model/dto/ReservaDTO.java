@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 public class ReservaDTO {
     private String numeroReserva;
+
+    // tirar numero de cliente
     private String numeroCliente;
     private String numeroBicicleta;
     private LocalDateTime dataInicio;

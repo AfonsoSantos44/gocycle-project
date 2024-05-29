@@ -1,19 +1,20 @@
 start transaction ;
-do $$
+do
+$$
 begin
-
-drop table if exists public.Cliente;
-drop table if exists public.Bicicleta;
-drop table if exists public.DispositivoGPS;
-drop table if exists public.Loja;
+drop table if exists Cliente;
+drop table if exists Bicicleta;
+drop table if exists DispositivoGPS;
+drop table if exists Loja;
 
 CREATE TABLE Cliente (
-     nome VARCHAR(255) NOT NULL,
-     morada VARCHAR(255),
-     endereco_eletronico VARCHAR(255),
-     numero_telefone VARCHAR(20),
-     numero_cc_passaporte VARCHAR(50),
-     nacionalidade VARCHAR(100)
+     NUMEROCLIENTE INT PRIMARY KEY,
+     EMAIL VARCHAR(255),
+     MORADA VARCHAR(255),
+     NACIONALIDADE VARCHAR(255),
+     NOME VARCHAR(255),
+     NUMEROCCPASSAPORTE VARCHAR(255),
+     TELEFONE VARCHAR(255)
     );
 
 CREATE TABLE Bicicleta (
@@ -50,9 +51,7 @@ CREATE TABLE Reserva (
      valor_pagar DOUBLE PRECISION NOT NULL
 );
 
-
-
-
-
 end;
 $$ Language 'plpgsql';
+commit;
+

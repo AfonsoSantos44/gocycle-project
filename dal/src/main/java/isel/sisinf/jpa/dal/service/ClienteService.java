@@ -2,29 +2,27 @@ package isel.sisinf.jpa.dal.service;
 
 import isel.sisinf.jpa.dal.entity.Cliente;
 import isel.sisinf.jpa.dal.entity.Dal;
-import isel.sisinf.jpa.dal.repo.IClienteRepo;
+import isel.sisinf.jpa.dal.repo.ClientRepo;
 import isel.sisinf.model.dto.ClienteDTO;
 
 
 public class ClienteService {
 
-    private Dal dal;
+    private static int nextnumeroCliente = 1;
 
     public ClienteService() {
-        this.dal = new Dal();
+        Dal dal = new Dal();
     }
 
-    public void createClient(String nome, String morada, String enderecoEletronico, String numeroTelefone) {
-        // Create a ClienteDTO object with the provided information
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setNome(nome);
-        clienteDTO.setMorada(morada);
-        clienteDTO.setEnderecoEletronico(enderecoEletronico);
-        clienteDTO.setNumeroTelefone(numeroTelefone);
+    public void createClient(ClienteDTO clienteDTO)
+    {
+        Cliente cliente = convertToEntity(clienteDTO);
+        ClientRepo.ClienteRepository.addCliente(cliente);
+        System.out.println("Cliente adicionado com sucesso");
+        nextnumeroCliente++;
+    }
 
-        // Pass the ClienteDTO object to the createCustomer method of the Dal class
-        dal.createCustomer(clienteDTO);
-
-        System.out.println("Customer created successfully!");
+    private Cliente convertToEntity(ClienteDTO dto) {
+        return new Cliente(nextnumeroCliente++, dto.getNome(), dto.getMorada(), dto.getNumeroTelefone(), dto.getEnderecoEletronico(), dto.getNumeroCCPassaporte(), dto.getNacionalidade());
     }
 }

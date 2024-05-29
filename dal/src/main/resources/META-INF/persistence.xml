@@ -1,0 +1,23 @@
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="gocycle-project" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>isel.sisinf.jpa.dal.entity.Bicicleta</class>
+        <class>isel.sisinf.jpa.dal.entity.Cliente</class>
+        <class>isel.sisinf.jpa.dal.entity.Reserva</class>
+        <class>isel.sisinf.jpa.dal.entity.Dal</class>
+        <class>isel.sisinf.jpa.dal.entity.DispositivoGPS</class>
+        <class>isel.sisinf.jpa.dal.entity.Loja</class>
+        <!--<class>isel.sisinf.model.entities.ClienteReserva</class> -->
+        <!--<class>isel.sisinf.model.entities.Pessoa</class> -->
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://sisinfvlab0.dyn.fil.isel.pt:5432/t41dg9"/>
+            <property name="jakarta.persistence.jdbc.user" value="t41dg9"/>
+            <property name="jakarta.persistence.jdbc.password" value="isel2024"/>
+        </properties>
+    </persistence-unit>
+</persistence>
