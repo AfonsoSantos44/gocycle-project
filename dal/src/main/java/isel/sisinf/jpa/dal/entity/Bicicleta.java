@@ -3,6 +3,7 @@ package isel.sisinf.jpa.dal.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Bicicleta")
 public class Bicicleta
 {
     @Id
@@ -19,6 +20,20 @@ public class Bicicleta
 
     @OneToOne
     private DispositivoGPS dispositivoGPS;
+
+    public Bicicleta(int i, String identificador, int pesoGramas, String modelo, String marca, int numeroVelocidades, String estado, int autonomia) {
+        this.identificador = identificador;
+        this.pesoGramas = pesoGramas;
+        this.modelo = modelo;
+        this.marca = marca;
+        this.numeroVelocidades = numeroVelocidades;
+        this.estado = estado;
+        this.autonomia = autonomia;
+    }
+
+    public Bicicleta() {
+
+    }
 
     public void setId(Long id) {
         this.id = id;
