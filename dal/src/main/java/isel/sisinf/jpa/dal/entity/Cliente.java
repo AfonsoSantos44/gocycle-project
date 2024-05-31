@@ -17,8 +17,8 @@ public class Cliente {
     private String numeroCCPassaporte;
     private String nacionalidade;
 
-    public Cliente(int numeroCliente, String nome, String morada, String telefone, String email, String numeroCCPassaporte, String nacionalidade) {
-        this.numeroCliente = numeroCliente;
+    public Cliente(int nextNumeroCliente, String nome, String morada, String telefone, String email, String numeroCCPassaporte, String nacionalidade) {
+        this.numeroCliente = nextNumeroCliente;
         this.nome = nome;
         this.morada = morada;
         this.telefone = telefone;

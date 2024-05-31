@@ -23,6 +23,7 @@ SOFTWARE.
 */
 package isel.sisinf.ui;
 
+import isel.sisinf.jpa.dal.entity.Bicicleta;
 import isel.sisinf.jpa.dal.entity.Dal;
 import isel.sisinf.jpa.dal.service.BicicletaService;
 import isel.sisinf.jpa.dal.service.ClienteService;
@@ -188,24 +189,20 @@ class UI
     }
 
     private void listExistingBikes() {
-        List<BicicletaDTO> bikes = BicicletaService.listBikes();
-        if (bikes != null) {
-            System.out.println("Bikes:");
-            for (BicicletaDTO bike : bikes) {
-                System.out.println("Identifier: " + bike.getIdentificador());
-                System.out.println("Model: " + bike.getModelo());
-                System.out.println("Brand: " + bike.getMarca());
-                System.out.println("Number of speeds: " + bike.getNumeroVelocidades());
-                System.out.println("State: " + bike.getEstado());
-                System.out.println("Weight: " + bike.getPesoGramas() + " grams");
-                System.out.println("Max speed: " + bike.getVelocidadeMaxima() + " km/h");
-                if (bike.getAutonomia() != 0) {
-                    System.out.println("Autonomy: " + bike.getAutonomia() + " km");
-                }
-                System.out.println();
+        List<Bicicleta> bikes = BicicletaService.listBikes();
+        System.out.println("Bikes:");
+        for (Bicicleta bike : bikes) {
+            System.out.println("Identifier: " + bike.getIdentificador());
+            System.out.println("Model: " + bike.getModelo());
+            System.out.println("Brand: " + bike.getMarca());
+            System.out.println("Number of speeds: " + bike.getNumeroVelocidades());
+            System.out.println("State: " + bike.getEstado());
+            System.out.println("Weight: " + bike.getPesoGramas() + " grams");
+            System.out.println("Max speed: " + bike.getVelocidadeMaxima() + " km/h");
+            if (bike.getAutonomia() != 0) {
+                System.out.println("Autonomy: " + bike.getAutonomia() + " km");
             }
-        } else {
-            System.out.println("Error listing bikes");
+            System.out.println();
         }
     }
     private void checkBikeAvailability()
@@ -219,6 +216,7 @@ class UI
         BicicletaDTO bike = new BicicletaDTO(bikeIdentifier);
 
         // Check bike availability
+        /*
         boolean isAvailable = BicicletaService.checkBikeAvailability(bike);
 
         if (isAvailable) {
@@ -226,6 +224,8 @@ class UI
         } else {
             System.out.println("Bike is not available for rental.");
         }
+
+         */
 
     }
 

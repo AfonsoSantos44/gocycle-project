@@ -6,9 +6,9 @@ import jakarta.persistence.*;
 @Table(name = "Bicicleta")
 public class Bicicleta
 {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String identificador;
     private int pesoGramas;
     private String modelo;
@@ -18,28 +18,58 @@ public class Bicicleta
     private int autonomia; // para bicicletas elétricas
     private int velocidadeMaxima; // para bicicletas elétricas
 
-    @OneToOne
-    private DispositivoGPS dispositivoGPS;
 
-    public Bicicleta(int i, String identificador, int pesoGramas, String modelo, String marca, int numeroVelocidades, String estado, int autonomia) {
-        this.identificador = identificador;
-        this.pesoGramas = pesoGramas;
-        this.modelo = modelo;
-        this.marca = marca;
-        this.numeroVelocidades = numeroVelocidades;
-        this.estado = estado;
-        this.autonomia = autonomia;
+    // Verificar depois
+   // @OneToOne
+   // private DispositivoGPS dispositivoGPS;
+
+    public Bicicleta(Bicicleta bicicleta) {
+        this.identificador = bicicleta.identificador;
+        this.pesoGramas = bicicleta.pesoGramas;
+        this.modelo = bicicleta.modelo;
+        this.marca = bicicleta.marca;
+        this.numeroVelocidades = bicicleta.numeroVelocidades;
+        this.estado = bicicleta.estado;
+        this.autonomia = bicicleta.autonomia;
+        this.velocidadeMaxima = bicicleta.velocidadeMaxima;
     }
 
     public Bicicleta() {
 
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    // Getters
+
+    public String getIdentificador() {
+        return identificador;
     }
 
-    public Long getId() {
-        return id;
+    public String getModelo() {
+        return modelo;
     }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public int getNumeroVelocidades() {
+        return numeroVelocidades;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public int getPesoGramas() {
+        return pesoGramas;
+    }
+
+    public int getVelocidadeMaxima() {
+        return velocidadeMaxima;
+    }
+
+    public int getAutonomia() {
+        return autonomia;
+    }
+
 }

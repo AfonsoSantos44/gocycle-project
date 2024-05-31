@@ -23,19 +23,12 @@ public class Dal
     }
 
 
-
-    public List<BicicletaDTO> listBikes() {
-        EntityManager em = getEntityManager();
-        List<BicicletaDTO> bikes = em.createQuery("SELECT b FROM Bicicleta b", BicicletaDTO.class).getResultList();
-        em.close();
-        return bikes;
-    }
-
     public boolean checkBikeAvailability(BicicletaDTO bike) {
         EntityManager em = getEntityManager();
-        BicicletaDTO foundBike = em.find(BicicletaDTO.class, bike.getIdentificador());
+       // BicicletaDTO foundBike = em.find(BicicletaDTO.class, bike.getIdentificador());
         em.close();
-        return foundBike != null && "Disponivel".equals(foundBike.getEstado());
+       // return foundBike != null && "Disponivel".equals(foundBike.getEstado());
+        return true;
     }
 
     public List<ReservaDTO> listBookings() {
@@ -63,4 +56,5 @@ public class Dal
         }
         em.close();
     }
+
 }
