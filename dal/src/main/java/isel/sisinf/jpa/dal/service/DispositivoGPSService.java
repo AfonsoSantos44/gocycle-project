@@ -1,12 +1,13 @@
 package isel.sisinf.jpa.dal.service;
 
 
-import isel.sisinf.jpa.dal.repo.IDispositivoGPSRepo;
+import isel.sisinf.jpa.dal.repo.DispositivoGPSRepo;
+import isel.sisinf.jpa.dal.repo.DispositivoGPSRepo;
 
 public class DispositivoGPSService
 {
 
-    private IDispositivoGPSRepo dispositivoGPSRepository;
+    private DispositivoGPSRepo dispositivoGPSRepository;
 
     public void createDispositivoGPS()
     {

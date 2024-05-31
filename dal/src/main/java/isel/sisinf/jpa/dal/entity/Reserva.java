@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "Reserva")
 public class Reserva
 {
     @Id
@@ -18,5 +19,16 @@ public class Reserva
 
     @ManyToOne
     private Bicicleta bicicleta;
+
+    public Reserva(String numeroReserva, LocalDateTime dataInicio, LocalDateTime dataFim, double valorPagar) {
+        this.numeroReserva = numeroReserva;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.valorPagar = valorPagar;
+    }
+
+    public Reserva(){
+
+    }
 
 }
