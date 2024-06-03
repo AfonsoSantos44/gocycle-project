@@ -25,7 +25,9 @@ package isel.sisinf.ui;
 
 import isel.sisinf.jpa.dal.entity.Bicicleta;
 import isel.sisinf.jpa.dal.entity.Dal;
+import isel.sisinf.jpa.dal.entity.Reserva;
 import isel.sisinf.jpa.dal.repo.BicicletaRepo;
+import isel.sisinf.jpa.dal.repo.ReservaRepo;
 import isel.sisinf.jpa.dal.service.BicicletaService;
 import isel.sisinf.jpa.dal.service.ClienteService;
 import isel.sisinf.jpa.dal.service.ReservaService;
@@ -224,7 +226,17 @@ class UI
     }
 
     private void obtainBookings() {
-        //TODO()
+        List<Reserva> bookings = ReservaRepo.ReservaRepository.listBookings();
+        System.out.println("Bookings:");
+        for (Reserva booking : bookings) {
+            System.out.println("Booking number: " + booking.getNumeroReserva());
+            System.out.println("Customer: " + booking.getNumeroCliente());
+            System.out.println("Bike: " + booking.getBicicleta());
+            System.out.println("Start date: " + booking.getDataInicio());
+            System.out.println("End date: " + booking.getDataFim());
+            System.out.println("Value to pay: " + booking.getValorPagar());
+            System.out.println();
+        }
     }
 
     private void makeBooking() {
@@ -241,15 +253,6 @@ class UI
         System.out.println("Enter end date (yyyy-MM-dd HH:mm:ss):");
         LocalDateTime endDate = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        // Create a ReservaDTO object with the provided details
-        ReservaDTO reservaDTO = new ReservaDTO();
-        reservaDTO.setNumeroCliente(customerName);
-        reservaDTO.setNumeroBicicleta(bikeIdentifier);
-        reservaDTO.setDataInicio(startDate);
-        reservaDTO.setDataFim(endDate);
-
-        // Call the createBooking method with the ReservaDTO object
-        ReservaService.createBooking(reservaDTO);
 
         System.out.println("Booking created successfully!");
     }

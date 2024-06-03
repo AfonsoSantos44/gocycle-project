@@ -30,7 +30,7 @@ CREATE TABLE Bicicleta (
 );
 
 CREATE TABLE DispositivoGPS (
-    numeroSerie VARCHAR(255) NOT NULL PRIMARY KEY,
+    numeroSerie INT NOT NULL PRIMARY KEY,
     latitude DOUBLE PRECISION NOT NULL,
     longitude DOUBLE PRECISION NOT NULL,
     percentagemBateria INT NOT NULL
@@ -46,7 +46,9 @@ CREATE TABLE Loja (
 );
 
 CREATE TABLE Reserva (
-     numeroReserva VARCHAR(50) NOT NULL PRIMARY KEY,
+     numeroReserva INT NOT NULL PRIMARY KEY,
+     numeroCliente INT NOT NULL,
+     numeroBicicleta VARCHAR(50) NOT NULL,
      datainicio TIMESTAMP NOT NULL,
      datafim TIMESTAMP NOT NULL,
      valorPagar DOUBLE PRECISION NOT NULL
@@ -70,3 +72,14 @@ INSERT INTO Bicicleta (identificador, pesogramas, modelo, marca, numerovelocidad
     ('BIKE009', 17500, 'Electric Commuter', 'ElectroRide', 5, 'em manutenção', 40, 20),
     ('BIKE010', 12000, 'Kids Fun', 'TinyRiders', 3, 'livre', 0, NULL);
 
+INSERT INTO Reserva (numeroReserva, numeroCliente, numeroBicicleta, dataInicio, dataFim, valorPagar) VALUES
+     (1, 1, 'bicicleta1', '2022-01-01 00:00:00', '2022-01-02 00:00:00', 10.0),
+     (2, 2, 'bicicleta2', '2022-01-03 00:00:00', '2022-01-04 00:00:00', 20.0),
+     (3, 3, 'bicicleta3', '2022-01-05 00:00:00', '2022-01-06 00:00:00', 30.0),
+     (4, 4, 'bicicleta4', '2022-01-07 00:00:00', '2022-01-08 00:00:00', 40.0),
+     (5, 5, 'bicicleta5', '2022-01-09 00:00:00', '2022-01-10 00:00:00', 50.0),
+     (6, 6, 'bicicleta6', '2022-01-11 00:00:00', '2022-01-12 00:00:00', 60.0),
+     (7, 7, 'bicicleta7', '2022-01-13 00:00:00', '2022-01-14 00:00:00', 70.0),
+     (8, 8, 'bicicleta8', '2022-01-15 00:00:00', '2022-01-16 00:00:00', 80.0),
+     (9, 9, 'bicicleta9', '2022-01-17 00:00:00', '2022-01-18 00:00:00', 90.0),
+     (10, 10, 'bicicleta10', '2022-01-19 00:00:00', '2022-01-20 00:00:00', 100.0);
