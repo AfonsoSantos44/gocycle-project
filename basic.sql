@@ -59,14 +59,14 @@ commit;
 
 -- insert data to bicicleta
 INSERT INTO Bicicleta (identificador, pesogramas, modelo, marca, numerovelocidades, estado, autonomia, velocidadeMaxima) VALUES
-    ('BIKE001', 15000, 'Mountain Pro', 'BikeBrand', 21, 'Nova', 0, NULL),
-    ('BIKE002', 13500, 'City Cruiser', 'UrbanCycles', 7, 'Usada', 0, NULL),
-    ('BIKE003', 16000, 'Road Racer', 'Speedster', 18, 'Nova', 0, NULL),
-    ('BIKE004', 12500, 'Hybrid Elite', 'EcoWheels', 24, 'Nova', 0, NULL),
-    ('BIKE005', 18000, 'Electric Adventure', 'VoltBikes', 8, 'Nova', 50, 25),
-    ('BIKE006', 14000, 'Folding Mini', 'CompactRides', 6, 'Usada', 0, NULL),
-    ('BIKE007', 15500, 'Touring Expert', 'Traveler', 27, 'Nova', 0, NULL),
-    ('BIKE008', 13000, 'Single Speed', 'Simplicity', 1, 'Usada', 0, NULL),
-    ('BIKE009', 17500, 'Electric Commuter', 'ElectroRide', 5, 'Nova', 40, 20),
-    ('BIKE010', 12000, 'Kids Fun', 'TinyRiders', 3, 'Nova', 0, NULL);
+    ('BIKE001', 15000, 'Mountain Pro', 'BikeBrand', 21, 'livre', 0, NULL),
+    ('BIKE002', 13500, 'City Cruiser', 'UrbanCycles', 7, 'livre', 0, NULL),
+    ('BIKE003', 16000, 'Road Racer', 'Speedster', 18, 'ocupado', 0, NULL),
+    ('BIKE004', 12500, 'Hybrid Elite', 'EcoWheels', 24, 'ocupado', 0, NULL),
+    ('BIKE005', 18000, 'Electric Adventure', 'VoltBikes', 8, 'em reserva', 50, 25),
+    ('BIKE006', 14000, 'Folding Mini', 'CompactRides', 6, 'livre', 0, NULL),
+    ('BIKE007', 15500, 'Touring Expert', 'Traveler', 27, 'ocupado', 0, NULL),
+    ('BIKE008', 13000, 'Single Speed', 'Simplicity', 1, 'em reserva', 0, NULL),
+    ('BIKE009', 17500, 'Electric Commuter', 'ElectroRide', 5, 'em manutenção', 40, 20),
+    ('BIKE010', 12000, 'Kids Fun', 'TinyRiders', 3, 'livre', 0, NULL);
 

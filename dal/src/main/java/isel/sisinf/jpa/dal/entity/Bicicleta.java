@@ -7,8 +7,9 @@ import jakarta.persistence.*;
 public class Bicicleta
 {
 
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private String identificador;
     private int pesoGramas;
     private String modelo;
@@ -24,7 +25,6 @@ public class Bicicleta
    // private DispositivoGPS dispositivoGPS;
 
     public Bicicleta(Bicicleta bicicleta) {
-        this.identificador = bicicleta.identificador;
         this.pesoGramas = bicicleta.pesoGramas;
         this.modelo = bicicleta.modelo;
         this.marca = bicicleta.marca;

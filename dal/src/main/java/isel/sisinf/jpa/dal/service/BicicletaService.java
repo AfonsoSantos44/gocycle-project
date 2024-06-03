@@ -2,7 +2,7 @@ package isel.sisinf.jpa.dal.service;
 
 import isel.sisinf.jpa.dal.entity.Bicicleta;
 import isel.sisinf.jpa.dal.repo.BicicletaRepo;
-import isel.sisinf.model.dto.BicicletaDTO;
+
 
 import java.util.List;
 

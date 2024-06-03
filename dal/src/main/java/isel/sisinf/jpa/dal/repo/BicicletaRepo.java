@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static isel.sisinf.jpa.dal.entity.Dal.getEntityManager;
+
 public class BicicletaRepo{
 
     // use for read only
@@ -24,11 +26,18 @@ public class BicicletaRepo{
     public interface BicicletaRepository {
 
         static List<Bicicleta> listBikes(){
-            EntityManager em = Dal.getEntityManager();
+            EntityManager em = getEntityManager();
             List<Bicicleta> bikes = em.createQuery("SELECT b FROM Bicicleta b", Bicicleta.class).getResultList();
             em.close();
             Collections.reverse(bikes);
             return Collections.unmodifiableList(bikes);
+        }
+
+        static boolean checkBikeAvailability(String bikeIdentifier) {
+            EntityManager em = getEntityManager();
+            Bicicleta foundBike = em.find(Bicicleta.class, bikeIdentifier);
+            em.close();
+            return foundBike != null && "livre".equals(foundBike.getEstado());
         }
 
     }

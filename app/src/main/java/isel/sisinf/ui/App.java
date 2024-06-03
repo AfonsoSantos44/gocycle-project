@@ -25,6 +25,7 @@ package isel.sisinf.ui;
 
 import isel.sisinf.jpa.dal.entity.Bicicleta;
 import isel.sisinf.jpa.dal.entity.Dal;
+import isel.sisinf.jpa.dal.repo.BicicletaRepo;
 import isel.sisinf.jpa.dal.service.BicicletaService;
 import isel.sisinf.jpa.dal.service.ClienteService;
 import isel.sisinf.jpa.dal.service.ReservaService;
@@ -205,28 +206,21 @@ class UI
             System.out.println();
         }
     }
+
     private void checkBikeAvailability()
     {
-
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter bike identifier:");
         String bikeIdentifier = scanner.nextLine();
 
-        // Create a BicicletaDTO object from the bikeIdentifier
-        BicicletaDTO bike = new BicicletaDTO(bikeIdentifier);
-
         // Check bike availability
-        /*
-        boolean isAvailable = BicicletaService.checkBikeAvailability(bike);
+        boolean isAvailable = BicicletaRepo.BicicletaRepository.checkBikeAvailability(bikeIdentifier);
 
         if (isAvailable) {
-            System.out.println("Bike is available for rental.");
+            System.out.println("Bike is available.");
         } else {
-            System.out.println("Bike is not available for rental.");
+            System.out.println("Bike is not available.");
         }
-
-         */
-
     }
 
     private void obtainBookings() {
