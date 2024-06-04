@@ -14,19 +14,5 @@ public class BicicletaDTO {
         this.identificador = identificador;
     }
 
-    // Setters
-
-    public void setIdentificador(String identificador) {
-        this.identificador = identificador;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
 
 }

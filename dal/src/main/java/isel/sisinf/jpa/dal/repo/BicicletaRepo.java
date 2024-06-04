@@ -1,13 +1,10 @@
 package isel.sisinf.jpa.dal.repo;
 
 import isel.sisinf.jpa.dal.entity.Bicicleta;
-import isel.sisinf.jpa.dal.entity.Dal;
-import isel.sisinf.model.dto.BicicletaDTO;
 import jakarta.persistence.EntityManager;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static isel.sisinf.jpa.dal.entity.Dal.getEntityManager;
 
@@ -25,19 +22,24 @@ public class BicicletaRepo{
     // use for write only
     public interface BicicletaRepository {
 
+        EntityManager em = getEntityManager();
+
         static List<Bicicleta> listBikes(){
-            EntityManager em = getEntityManager();
             List<Bicicleta> bikes = em.createQuery("SELECT b FROM Bicicleta b", Bicicleta.class).getResultList();
             em.close();
             Collections.reverse(bikes);
             return Collections.unmodifiableList(bikes);
         }
 
-        static boolean checkBikeAvailability(String bikeIdentifier) {
-            EntityManager em = getEntityManager();
-            Bicicleta foundBike = em.find(Bicicleta.class, bikeIdentifier);
-            em.close();
+        static boolean checkBikeAvailability(Integer bikeIdentifier) {
+            Bicicleta foundBike = getBicicleta(bikeIdentifier);
             return foundBike != null && "livre".equals(foundBike.getEstado());
+        }
+
+        static Bicicleta getBicicleta(Integer bikeIdentifier) {
+                Bicicleta foundBike = em.find(Bicicleta.class, bikeIdentifier);
+                em.close();
+                return foundBike;
         }
 
     }

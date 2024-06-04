@@ -39,8 +39,10 @@ import org.glassfish.jaxb.core.v2.TODO;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 interface DbWorker
 {
@@ -216,7 +218,7 @@ class UI
         String bikeIdentifier = scanner.nextLine();
 
         // Check bike availability
-        boolean isAvailable = BicicletaRepo.BicicletaRepository.checkBikeAvailability(bikeIdentifier);
+        boolean isAvailable = BicicletaRepo.BicicletaRepository.checkBikeAvailability(Integer.valueOf(bikeIdentifier));
 
         if (isAvailable) {
             System.out.println("Bike is available.");
@@ -227,32 +229,64 @@ class UI
 
     private void obtainBookings() {
         List<Reserva> bookings = ReservaRepo.ReservaRepository.listBookings();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         System.out.println("Bookings:");
         for (Reserva booking : bookings) {
             System.out.println("Booking number: " + booking.getNumeroReserva());
             System.out.println("Customer: " + booking.getNumeroCliente());
-            System.out.println("Bike: " + booking.getBicicleta());
-            System.out.println("Start date: " + booking.getDataInicio());
-            System.out.println("End date: " + booking.getDataFim());
-            System.out.println("Value to pay: " + booking.getValorPagar());
+            System.out.println("Bike: " + booking.gebicicleta().getIdentificador());
+            System.out.println("Start date: " + booking.getDataInicio().format(formatter));
+            System.out.println("End date: " + booking.getDataFim().format(formatter));
+            System.out.println("Value to pay: " + String.format("%.2f", booking.getValorPagar()));
             System.out.println();
         }
     }
 
     private void makeBooking() {
-
         Scanner scanner = new Scanner(System.in);
+
+        // Display the list of available bikes to the user
+        System.out.println("Available bikes:");
+        List<Bicicleta> availableBikes = BicicletaRepo.BicicletaRepository.listBikes().stream()
+                .filter(bike -> "livre".equals(bike.getEstado()))
+                .toList();
+        for (int i = 0; i < availableBikes.size(); i++) {
+            System.out.println((i + 1) + ". " + availableBikes.get(i).getIdentificador());
+        }
+
+        // Prompt the user to select a bike
+        System.out.println("Enter the number of the bike you want to book:");
+        int bikeIndex = scanner.nextInt() - 1;
+        scanner.nextLine(); // consume the newline
+
+        // Get the selected bike
+        Bicicleta selectedBike = BicicletaRepo.BicicletaRepository.getBicicleta(availableBikes.get(bikeIndex).getIdentificador());
+
 
         // Prompt the user to input booking details
         System.out.println("Enter customer id:");
         String customerName = scanner.nextLine();
-        System.out.println("Enter bike identifier:");
-        String bikeIdentifier = scanner.nextLine();
         System.out.println("Enter start date (yyyy-MM-dd HH:mm:ss):");
         LocalDateTime startDate = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         System.out.println("Enter end date (yyyy-MM-dd HH:mm:ss):");
         LocalDateTime endDate = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
+        // Generate a random value for valorPagar
+        Random random = new Random();
+        double valorPagar = 0.0 + (100.0 - 0.0) * random.nextDouble();
+
+        // Create booking
+        Reserva reserva = new Reserva();
+        reserva.setNumeroReserva(ReservaRepo.ReservaRepository.getNextBookingNumber()); // Set the booking number
+        reserva.setNumeroCliente(Integer.parseInt(customerName));
+        reserva.setDataInicio(startDate);
+        reserva.setDataFim(endDate);
+        reserva.setValorPagar(valorPagar);
+        reserva.setBicicleta(selectedBike);// Set the selected bike
+
+
+        ReservaService.createBooking(reserva);
 
         System.out.println("Booking created successfully!");
     }

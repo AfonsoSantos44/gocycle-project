@@ -22,7 +22,7 @@ public class ReservaRepo {
 
     public interface ReservaRepository {
 
-        static void addReserva(Reserva reserva) {
+        static void createBooking(Reserva reserva) {
             EntityManager em = getEntityManager();
             em.getTransaction().begin();
             em.persist(reserva);
@@ -36,6 +36,14 @@ public class ReservaRepo {
             em.close();
             return bookings;
         }
+
+        static Integer getNextBookingNumber() {
+            EntityManager em = getEntityManager();
+            Integer maxBookingNumber = em.createQuery("SELECT MAX(r.numeroReserva) FROM Reserva r", Integer.class).getSingleResult();
+            em.close();
+            return (maxBookingNumber == null ? 1 : maxBookingNumber + 1);
+        }
+
     }
 }
 

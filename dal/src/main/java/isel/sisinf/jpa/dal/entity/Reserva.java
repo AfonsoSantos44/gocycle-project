@@ -1,5 +1,6 @@
 package isel.sisinf.jpa.dal.entity;
 
+import isel.sisinf.jpa.dal.repo.BicicletaRepo;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -7,25 +8,24 @@ import java.time.LocalDateTime;
 @Table(name = "Reserva")
 public class Reserva {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer numeroReserva;
+    private Integer numerobicicleta;
     private Integer numeroCliente;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
     private double valorPagar;
 
-    @ManyToOne
-    @JoinColumn(name = "numeroBicicleta", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "numerobicicleta", insertable = false, updatable = false)
     private Bicicleta bicicleta;
 
-    public Reserva(Integer numeroReserva, LocalDateTime dataInicio, LocalDateTime dataFim, double valorPagar, Integer numeroCliente, Bicicleta bicicleta) {
-        this.numeroReserva = numeroReserva;
-        this.bicicleta = bicicleta;
-        this.numeroCliente = numeroCliente;
+    public Reserva(LocalDateTime dataInicio, LocalDateTime dataFim, double valorPagar, Integer numeroCliente, Integer bicicletaId) {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.valorPagar = valorPagar;
+        this.numeroCliente = numeroCliente;
+        this.numerobicicleta = bicicletaId;
     }
 
     public Reserva() {
@@ -53,9 +53,10 @@ public class Reserva {
         return numeroCliente;
     }
 
-    public Bicicleta getBicicleta() {
+    public Bicicleta gebicicleta() {
         return bicicleta;
     }
+
 
     // Setters
 
@@ -77,6 +78,11 @@ public class Reserva {
 
     public void setValorPagar(double valorPagar) {
         this.valorPagar = valorPagar;
+    }
+
+
+    public void setBicicleta(Bicicleta selectedBike) {
+       numerobicicleta = selectedBike.getIdentificador();
     }
 
 }

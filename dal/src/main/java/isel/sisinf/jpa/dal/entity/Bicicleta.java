@@ -10,7 +10,7 @@ public class Bicicleta
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private String identificador;
+    private Integer identificador;
     private int pesoGramas;
     private String modelo;
     private String marca;
@@ -40,7 +40,7 @@ public class Bicicleta
 
     // Getters
 
-    public String getIdentificador() {
+    public Integer getIdentificador() {
         return identificador;
     }
 

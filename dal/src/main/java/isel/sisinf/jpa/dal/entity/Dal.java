@@ -23,13 +23,6 @@ public class Dal
     }
 
 
-    public void createBooking(ReservaDTO reservaDTO) {
-        EntityManager em = getEntityManager();
-        em.getTransaction().begin();
-        em.persist(reservaDTO);
-        em.getTransaction().commit();
-        em.close();
-    }
 
     public void cancelBooking(String numeroReserva) {
         EntityManager em = getEntityManager();

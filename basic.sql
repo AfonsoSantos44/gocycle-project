@@ -19,7 +19,7 @@ CREATE TABLE Cliente (
     );
 
 CREATE TABLE Bicicleta (
-   identificador VARCHAR(255) NOT NULL PRIMARY KEY,
+   identificador INT NOT NULL PRIMARY KEY,
    pesoGramas INT NOT NULL,
    modelo VARCHAR(255) NOT NULL,
    marca VARCHAR(255) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE Loja (
 CREATE TABLE Reserva (
      numeroReserva INT NOT NULL PRIMARY KEY,
      numeroCliente INT NOT NULL,
-     numeroBicicleta VARCHAR(50) NOT NULL,
+     numeroBicicleta INT NOT NULL,
      datainicio TIMESTAMP NOT NULL,
      datafim TIMESTAMP NOT NULL,
      valorPagar DOUBLE PRECISION NOT NULL
@@ -61,25 +61,25 @@ commit;
 
 -- insert data to bicicleta
 INSERT INTO Bicicleta (identificador, pesogramas, modelo, marca, numerovelocidades, estado, autonomia, velocidadeMaxima) VALUES
-    ('BIKE001', 15000, 'Mountain Pro', 'BikeBrand', 21, 'livre', 0, NULL),
-    ('BIKE002', 13500, 'City Cruiser', 'UrbanCycles', 7, 'livre', 0, NULL),
-    ('BIKE003', 16000, 'Road Racer', 'Speedster', 18, 'ocupado', 0, NULL),
-    ('BIKE004', 12500, 'Hybrid Elite', 'EcoWheels', 24, 'ocupado', 0, NULL),
-    ('BIKE005', 18000, 'Electric Adventure', 'VoltBikes', 8, 'em reserva', 50, 25),
-    ('BIKE006', 14000, 'Folding Mini', 'CompactRides', 6, 'livre', 0, NULL),
-    ('BIKE007', 15500, 'Touring Expert', 'Traveler', 27, 'ocupado', 0, NULL),
-    ('BIKE008', 13000, 'Single Speed', 'Simplicity', 1, 'em reserva', 0, NULL),
-    ('BIKE009', 17500, 'Electric Commuter', 'ElectroRide', 5, 'em manutenção', 40, 20),
-    ('BIKE010', 12000, 'Kids Fun', 'TinyRiders', 3, 'livre', 0, NULL);
+     (1, 15000, 'Mountain Pro', 'BikeBrand', 21, 'livre', 0, NULL),
+     (2, 13500, 'City Cruiser', 'UrbanCycles', 7, 'livre', 0, NULL),
+     (3, 16000, 'Road Racer', 'Speedster', 18, 'ocupado', 0, NULL),
+     (4, 12500, 'Hybrid Elite', 'EcoWheels', 24, 'ocupado', 0, NULL),
+     (5, 18000, 'Electric Adventure', 'VoltBikes', 8, 'em reserva', 50, 25),
+     (6, 14000, 'Folding Mini', 'CompactRides', 6, 'livre', 0, NULL),
+     (7, 15500, 'Touring Expert', 'Traveler', 27, 'ocupado', 0, NULL),
+     (8, 13000, 'Single Speed', 'Simplicity', 1, 'em reserva', 0, NULL),
+     (9, 17500, 'Electric Commuter', 'ElectroRide', 5, 'em manutenção', 40, 20),
+     (10, 12000, 'Kids Fun', 'TinyRiders', 3, 'livre', 0, NULL);
 
 INSERT INTO Reserva (numeroReserva, numeroCliente, numeroBicicleta, dataInicio, dataFim, valorPagar) VALUES
-     (1, 1, 'bicicleta1', '2022-01-01 00:00:00', '2022-01-02 00:00:00', 10.0),
-     (2, 2, 'bicicleta2', '2022-01-03 00:00:00', '2022-01-04 00:00:00', 20.0),
-     (3, 3, 'bicicleta3', '2022-01-05 00:00:00', '2022-01-06 00:00:00', 30.0),
-     (4, 4, 'bicicleta4', '2022-01-07 00:00:00', '2022-01-08 00:00:00', 40.0),
-     (5, 5, 'bicicleta5', '2022-01-09 00:00:00', '2022-01-10 00:00:00', 50.0),
-     (6, 6, 'bicicleta6', '2022-01-11 00:00:00', '2022-01-12 00:00:00', 60.0),
-     (7, 7, 'bicicleta7', '2022-01-13 00:00:00', '2022-01-14 00:00:00', 70.0),
-     (8, 8, 'bicicleta8', '2022-01-15 00:00:00', '2022-01-16 00:00:00', 80.0),
-     (9, 9, 'bicicleta9', '2022-01-17 00:00:00', '2022-01-18 00:00:00', 90.0),
-     (10, 10, 'bicicleta10', '2022-01-19 00:00:00', '2022-01-20 00:00:00', 100.0);
+     (1, 1, 1, '2022-01-01 00:00:00', '2022-01-02 00:00:00', 10.0),
+     (2, 2, 2, '2022-01-03 00:00:00', '2022-01-04 00:00:00', 20.0),
+     (3, 3, 3, '2022-01-05 00:00:00', '2022-01-06 00:00:00', 30.0),
+     (4, 4, 4, '2022-01-07 00:00:00', '2022-01-08 00:00:00', 40.0),
+     (5, 5, 5, '2022-01-09 00:00:00', '2022-01-10 00:00:00', 50.0),
+     (6, 6, 6, '2022-01-11 00:00:00', '2022-01-12 00:00:00', 60.0),
+     (7, 7, 7, '2022-01-13 00:00:00', '2022-01-14 00:00:00', 70.0),
+     (8, 8, 8, '2022-01-15 00:00:00', '2022-01-16 00:00:00', 80.0),
+     (9, 9, 9, '2022-01-17 00:00:00', '2022-01-18 00:00:00', 90.0),
+     (10, 10, 10, '2022-01-19 00:00:00', '2022-01-20 00:00:00', 100.0);
