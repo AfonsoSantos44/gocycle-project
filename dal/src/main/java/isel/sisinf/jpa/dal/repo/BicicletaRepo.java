@@ -6,6 +6,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.StoredProcedureQuery;
 
+import java.util.Collections;
 import java.util.List;
 
 import static isel.sisinf.jpa.dal.entity.Dal.getEntityManager;
@@ -22,8 +23,9 @@ public class BicicletaRepo {
 
     public static class BicicletaRepository {
 
+        static EntityManager em = getEntityManager();
+
         public static List<Bicicleta> listBikes() {
-            EntityManager em = getEntityManager();
             try {
                 // Ajuste na consulta para incluir uma cláusula ORDER BY
                 List<Bicicleta> bikes = em.createQuery("SELECT b FROM Bicicleta b WHERE b.estado = 'livre' ORDER BY b.identificador", Bicicleta.class).getResultList();
@@ -34,7 +36,6 @@ public class BicicletaRepo {
         }
 
         public static boolean checkBikeAvailability(Integer bikeIdentifier) {
-            EntityManager em = getEntityManager();
             try {
                 Bicicleta foundBike = em.find(Bicicleta.class, bikeIdentifier);
                 return foundBike != null && "livre".equals(foundBike.getEstado());
@@ -43,8 +44,8 @@ public class BicicletaRepo {
             }
         }
 
+
         public static Bicicleta getBicicleta(Integer bikeIdentifier) {
-            EntityManager em = getEntityManager();
             try {
                 return em.find(Bicicleta.class, bikeIdentifier);
             } finally {
@@ -53,7 +54,6 @@ public class BicicletaRepo {
         }
 
         public static void updateBikeState(Integer bikeIdentifier, String newState) {
-            EntityManager em = getEntityManager();
             EntityTransaction transaction = em.getTransaction();
             try {
                 transaction.begin();

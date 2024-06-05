@@ -21,16 +21,4 @@ public class Dal
     }
 
 
-
-    public void cancelBooking(String numeroReserva) {
-        EntityManager em = getEntityManager();
-        ReservaDTO reserva = em.find(ReservaDTO.class, numeroReserva);
-        if (reserva != null) {
-            em.getTransaction().begin();
-            em.remove(reserva);
-            em.getTransaction().commit();
-        }
-        em.close();
-    }
-
 }

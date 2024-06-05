@@ -18,12 +18,7 @@ public class ReservaService
     }
 
     public void cancelBooking(String numeroReserva) {
-        try {
-            dal.cancelBooking(numeroReserva);
-            System.out.println("Booking canceled successfully!");
-        } catch (Exception e) {
-            System.err.println("Error canceling booking: " + e.getMessage());
-        }
+        ReservaRepo.ReservaRepository.cancelBooking(numeroReserva);
     }
 
 }

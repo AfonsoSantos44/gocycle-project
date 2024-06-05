@@ -236,7 +236,7 @@ class UI
         for (Reserva booking : bookings) {
             System.out.println("Booking number: " + booking.getNumeroReserva());
             System.out.println("Customer: " + booking.getNumeroCliente());
-            System.out.println("Bike: " + booking.gebicicleta().getIdentificador());
+            System.out.println("Bike: " + booking.getbicicleta().getIdentificador());
             System.out.println("Start date: " + booking.getDataInicio().format(formatter));
             System.out.println("End date: " + booking.getDataFim().format(formatter));
             System.out.println("Value to pay: " + String.format("%.2f", booking.getValorPagar()));
@@ -325,16 +325,34 @@ class UI
         System.out.println("Amount to Pay: " + String.format("%.2f", valorPagar));
     }
 
+    /*
+    * Done in a way that the user can cancel all the bookings available (since we dont know wich user is looged in)
+     */
 
-    private void cancelBooking()
-    {
+    private void cancelBooking() {
         Scanner scanner = new Scanner(System.in);
+
+        // Display the list of reservations with bikes in reservation state
+        System.out.println("Reservations with bikes currently in reservation:");
+        List<Object[]> reservations = ReservaRepo.ReservaRepository.listReservedBikesWithBookings();
+        for (Object[] reservation : reservations) {
+            System.out.println("Booking ID: " + reservation[0] + ", Bike ID: " + reservation[1]);
+        }
+
+        // Prompt the user to enter the booking ID to cancel
         System.out.println("Enter booking id:");
         String bookingNumber = scanner.nextLine();
 
+        // Proceed with cancellation
         ReservaService reservaService = new ReservaService();
         reservaService.cancelBooking(bookingNumber);
+
+        System.out.println("Booking cancelled successfully.");
     }
+
+
+
+
     private void about()
     {
         System.out.println("Group ID: 9");

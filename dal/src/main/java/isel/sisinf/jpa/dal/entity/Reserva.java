@@ -53,7 +53,7 @@ public class Reserva {
         return numeroCliente;
     }
 
-    public Bicicleta gebicicleta() {
+    public Bicicleta getbicicleta() {
         return bicicleta;
     }
 
