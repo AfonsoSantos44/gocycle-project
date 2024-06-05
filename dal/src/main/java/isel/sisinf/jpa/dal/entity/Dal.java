@@ -1,12 +1,10 @@
 package isel.sisinf.jpa.dal.entity;
 
-import isel.sisinf.model.dto.BicicletaDTO;
+
 import isel.sisinf.model.dto.ReservaDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-
-import java.util.List;
 
 public class Dal
 {

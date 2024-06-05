@@ -83,3 +83,16 @@ INSERT INTO Reserva (numeroReserva, numeroCliente, numeroBicicleta, dataInicio, 
      (8, 8, 8, '2022-01-15 00:00:00', '2022-01-16 00:00:00', 80.0),
      (9, 9, 9, '2022-01-17 00:00:00', '2022-01-18 00:00:00', 90.0),
      (10, 10, 10, '2022-01-19 00:00:00', '2022-01-20 00:00:00', 100.0);
+
+
+CREATE OR REPLACE PROCEDURE update_bike_state(bike_id INT, new_state VARCHAR)
+    LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE Bicicleta
+    SET estado = new_state
+    WHERE identificador = bike_id;
+END;
+$$;
+
+

@@ -72,4 +72,9 @@ public class Bicicleta
         return autonomia;
     }
 
+    // Setters
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }
