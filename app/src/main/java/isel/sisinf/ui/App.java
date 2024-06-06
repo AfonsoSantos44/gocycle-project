@@ -345,7 +345,6 @@ class UI
         System.out.println("Amount to Pay: " + String.format("%.2f", formattedValorPagar));
     }
 
-
     /*
     * Done in a way that the user can cancel all the bookings available (since we dont know wich user is looged in)
      */

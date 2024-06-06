@@ -36,15 +36,6 @@ CREATE TABLE DispositivoGPS (
     percentagemBateria INT NOT NULL
 );
 
-CREATE TABLE Loja (
-    codigo VARCHAR(50) NOT NULL PRIMARY KEY,
-    gestor VARCHAR(255) NOT NULL,
-    morada VARCHAR(255) NOT NULL,
-    localidade VARCHAR(100) NOT NULL,
-    numeroTelefone VARCHAR(20) NOT NULL,
-    enderecoEletronico VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE Reserva (
      numeroReserva INT NOT NULL PRIMARY KEY,
      numeroCliente INT NOT NULL,

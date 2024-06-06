@@ -14,7 +14,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="postgres@sisinfvlab0.dyn.fil.isel.pt" uuid="2ddf1adc-be40-44c5-8246-4fe48bd646f8">
+    <data-source source="LOCAL" name="postgres@sisinfvlab0.dyn.fil.isel.pt" uuid="c599e1a0-9a7b-4b1d-8e5f-87ee6d86d090">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

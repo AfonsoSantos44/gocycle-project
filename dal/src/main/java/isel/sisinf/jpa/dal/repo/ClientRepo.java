@@ -8,6 +8,7 @@ import jakarta.persistence.Persistence;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class ClientRepo{
 
@@ -28,14 +29,15 @@ public class ClientRepo{
             em.close();
         }
 
-        static Collection<Object> listClientes() {
+         static List<Cliente> listClientes() {
             EntityManager em = Dal.getEntityManager();
             try {
-                return Collections.singleton(em.createQuery("SELECT c FROM Cliente c", Cliente.class).getResultList());
+                return em.createQuery("SELECT c FROM Cliente c", Cliente.class).getResultList();
             } finally {
                 Dal.closeEntityManager(em);
             }
         }
+
     }
     }
 
