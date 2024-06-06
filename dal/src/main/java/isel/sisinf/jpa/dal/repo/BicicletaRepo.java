@@ -1,15 +1,12 @@
 package isel.sisinf.jpa.dal.repo;
 
 import isel.sisinf.jpa.dal.entity.Bicicleta;
+import isel.sisinf.jpa.dal.entity.Dal;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
-import jakarta.persistence.StoredProcedureQuery;
 
-import java.util.Collections;
 import java.util.List;
-
-import static isel.sisinf.jpa.dal.entity.Dal.getEntityManager;
 
 public class BicicletaRepo {
 
@@ -23,41 +20,43 @@ public class BicicletaRepo {
 
     public static class BicicletaRepository {
 
-        static EntityManager em = getEntityManager();
-
         public static List<Bicicleta> listBikes() {
+            EntityManager em = Dal.getEntityManager(); // Open EntityManager
             try {
-                // Ajuste na consulta para incluir uma cláusula ORDER BY
-                List<Bicicleta> bikes = em.createQuery("SELECT b FROM Bicicleta b WHERE b.estado = 'livre' ORDER BY b.identificador", Bicicleta.class).getResultList();
-                return bikes;
+
+                // Query to list all bikes
+                return em.createQuery("SELECT b FROM Bicicleta b WHERE b.estado = 'livre' ORDER BY b.identificador", Bicicleta.class).getResultList();
             } finally {
-                em.close();
+                Dal.closeEntityManager(em);
             }
         }
 
         public static boolean checkBikeAvailability(Integer bikeIdentifier) {
+            EntityManager em = Dal.getEntityManager();
             try {
                 Bicicleta foundBike = em.find(Bicicleta.class, bikeIdentifier);
                 return foundBike != null && "livre".equals(foundBike.getEstado());
             } finally {
-                em.close();
+                Dal.closeEntityManager(em);
             }
         }
 
-
         public static Bicicleta getBicicleta(Integer bikeIdentifier) {
+            EntityManager em = Dal.getEntityManager();
             try {
                 return em.find(Bicicleta.class, bikeIdentifier);
             } finally {
-                em.close();
+                Dal.closeEntityManager(em);
             }
         }
 
         public static void updateBikeState(Integer bikeIdentifier, String newState) {
+            EntityManager em = Dal.getEntityManager(); // Open EntityManager
             EntityTransaction transaction = em.getTransaction();
             try {
                 transaction.begin();
-                // Chama o procedimento armazenado
+
+                // Calls a stored procedure to update the bike state
                 Query query = em.createNativeQuery("CALL update_bike_state(?, ?)");
                 query.setParameter(1, bikeIdentifier);
                 query.setParameter(2, newState);
@@ -69,10 +68,8 @@ public class BicicletaRepo {
                 }
                 throw e;
             } finally {
-                em.close();
+                Dal.closeEntityManager(em);
             }
         }
-
-
     }
 }

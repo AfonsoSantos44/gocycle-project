@@ -8,14 +8,13 @@ import jakarta.persistence.Persistence;
 
 public class ClientRepo{
 
-    // use for read only
+
     public interface IClienteDataMapper extends IDataMapper<Cliente>{
         Cliente read(int id);
         Cliente update(Cliente entity);
         void delete(Cliente entity);
     }
 
-    // use for write only
     public interface ClienteRepository {
 
          static void addCliente(Cliente cliente) {

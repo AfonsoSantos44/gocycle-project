@@ -8,9 +8,6 @@
         <class>isel.sisinf.jpa.dal.entity.Reserva</class>
         <class>isel.sisinf.jpa.dal.entity.Dal</class>
         <class>isel.sisinf.jpa.dal.entity.DispositivoGPS</class>
-        <class>isel.sisinf.jpa.dal.entity.Loja</class>
-        <!--<class>isel.sisinf.model.entities.ClienteReserva</class> -->
-        <!--<class>isel.sisinf.model.entities.Pessoa</class> -->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="eclipselink.logging.level" value="FINE"/>

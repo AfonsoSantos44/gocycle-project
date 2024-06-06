@@ -24,6 +24,7 @@ SOFTWARE.
 package isel.sisinf.ui;
 
 import isel.sisinf.jpa.dal.entity.Bicicleta;
+import isel.sisinf.jpa.dal.entity.Cliente;
 import isel.sisinf.jpa.dal.entity.Dal;
 import isel.sisinf.jpa.dal.entity.Reserva;
 import isel.sisinf.jpa.dal.repo.BicicletaRepo;
@@ -36,6 +37,8 @@ import isel.sisinf.model.dto.ClienteDTO;
 import isel.sisinf.model.dto.ReservaDTO;
 import org.glassfish.jaxb.core.v2.TODO;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -179,17 +182,16 @@ class UI
         String nacionalidade = scanner.nextLine();
 
 
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setNome(name);
-        clienteDTO.setMorada(address);
-        clienteDTO.setEnderecoEletronico(email);
-        clienteDTO.setNumeroTelefone(phone);
-        clienteDTO.setNumeroCCPassaporte(numeroCCPassaporte);
-        clienteDTO.setNacionalidade(nacionalidade);
-
+        Cliente cliente = new Cliente();
+        cliente.setNome(name);
+        cliente.setMorada(address);
+        cliente.setEnderecoEletronico(email);
+        cliente.setNumeroTelefone(phone);
+        cliente.setNumeroCCPassaporte(numeroCCPassaporte);
+        cliente.setNacionalidade(nacionalidade);
 
         ClienteService clienteService = new ClienteService();
-        clienteService.createClient(clienteDTO);
+        clienteService.createClient(cliente);
 
         System.out.println("Customer created successfully!");
     }
@@ -273,9 +275,25 @@ class UI
         // Get the selected bike
         Bicicleta selectedBike = BicicletaRepo.BicicletaRepository.getBicicleta(availableBikes.get(bikeIndex).getIdentificador());
 
-        // Prompt the user to input booking details
-        System.out.println("Enter customer id:");
-        String customerId = scanner.nextLine();
+        // Prompt the user to input customer ID
+        String customerId = "";
+        boolean customerExists = false;
+        while (!customerExists) {
+            System.out.println("Enter customer ID:");
+            customerId = scanner.nextLine();
+            // Check if customer ID is empty or not a number
+            if (!customerId.isEmpty() && customerId.matches("\\d+")) {
+                // Check if customer exists in the database
+                if (ReservaRepo.ReservaRepository.customerExists(Integer.parseInt(customerId))) {
+                    customerExists = true;
+                } else {
+                    System.out.println("Customer does not exist. Please enter a valid ID.");
+                }
+            } else {
+                System.out.println("Invalid customer ID. Please enter a valid ID.");
+            }
+        }
+
 
         LocalDateTime startDate = null;
         while (startDate == null) {
@@ -297,18 +315,20 @@ class UI
             }
         }
 
-        // Generate a random value for valorPagar
+        // Generate a random value for valorPagar with 2 decimal places
         Random random = new Random();
         double valorPagar = 0.0 + (100.0 - 0.0) * random.nextDouble();
+        // Round to 2 decimal places
+        BigDecimal formattedValorPagar = BigDecimal.valueOf(valorPagar).setScale(2, RoundingMode.HALF_UP);
 
         // Create booking
         Reserva reserva = new Reserva();
-        reserva.setNumeroReserva(ReservaRepo.ReservaRepository.getNextBookingNumber()); // Set the booking number
+        reserva.setNumeroReserva(ReservaRepo.ReservaRepository.getNextBookingNumber());
         reserva.setNumeroCliente(Integer.parseInt(customerId));
         reserva.setDataInicio(startDate);
         reserva.setDataFim(endDate);
-        reserva.setValorPagar(valorPagar);
-        reserva.setBicicleta(selectedBike); // Set the selected bike
+        reserva.setValorPagar(formattedValorPagar.doubleValue());
+        reserva.setBicicleta(selectedBike);
 
         // Save the booking
         ReservaService.createBooking(reserva);
@@ -322,8 +342,9 @@ class UI
         System.out.println("Bike ID: " + selectedBike.getIdentificador());
         System.out.println("Start Date: " + startDate);
         System.out.println("End Date: " + endDate);
-        System.out.println("Amount to Pay: " + String.format("%.2f", valorPagar));
+        System.out.println("Amount to Pay: " + String.format("%.2f", formattedValorPagar));
     }
+
 
     /*
     * Done in a way that the user can cancel all the bookings available (since we dont know wich user is looged in)
@@ -345,7 +366,7 @@ class UI
 
         // Proceed with cancellation
         ReservaService reservaService = new ReservaService();
-        reservaService.cancelBooking(bookingNumber);
+        reservaService.cancelBooking(Integer.valueOf(bookingNumber));
 
         System.out.println("Booking cancelled successfully.");
     }
@@ -370,6 +391,12 @@ class UI
 
 public class App{
     public static void main(String[] args) throws Exception{
-        UI.getInstance().Run();
+        try {
+            UI.getInstance().Run();
+        }finally {
+
+            // Close the EntityManagerFactory so that the application can exit
+            Dal.closeEntityManagerFactory();
+        }
     }
 }

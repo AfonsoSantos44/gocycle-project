@@ -1,28 +1,25 @@
 package isel.sisinf.jpa.dal.service;
 
 import isel.sisinf.jpa.dal.entity.Cliente;
-import isel.sisinf.jpa.dal.entity.Dal;
 import isel.sisinf.jpa.dal.repo.ClientRepo;
 import isel.sisinf.model.dto.ClienteDTO;
 
 
 public class ClienteService {
 
-    private static int nextNumeroCliente = 1; // Add this line
+    private static int nextNumeroCliente = 1;
 
-    public ClienteService() {
-        Dal dal = new Dal();
-    }
-
-    public void createClient(ClienteDTO clienteDTO)
+    public void createClient(Cliente cliente)
     {
-        Cliente cliente = convertToEntity(clienteDTO);
-        ClientRepo.ClienteRepository.addCliente(cliente);
+        Cliente clienteEntity = convertToEntity(cliente);
+        ClientRepo.ClienteRepository.addCliente(clienteEntity);
         System.out.println("Cliente adicionado com sucesso");
-        nextNumeroCliente++; // Increment the number here
+        nextNumeroCliente++;
     }
 
-    private Cliente convertToEntity(ClienteDTO dto) {
-        return new Cliente(nextNumeroCliente, dto.getNome(), dto.getMorada(), dto.getNumeroTelefone(), dto.getEnderecoEletronico(), dto.getNumeroCCPassaporte(), dto.getNacionalidade());
+    private Cliente convertToEntity(Cliente cliente) {
+        return new Cliente(nextNumeroCliente, cliente.getNome(), cliente.getMorada(), cliente.getNumeroTelefone(), cliente.getEnderecoEletronico(), cliente.getNumeroCCPassaporte(), cliente.getNacionalidade());
     }
+
 }
+

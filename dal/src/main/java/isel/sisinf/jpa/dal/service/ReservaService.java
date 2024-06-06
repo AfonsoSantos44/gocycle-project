@@ -17,7 +17,7 @@ public class ReservaService
         ReservaRepo.ReservaRepository.createBooking(reserva);
     }
 
-    public void cancelBooking(String numeroReserva) {
+    public void cancelBooking(Integer numeroReserva) {
         ReservaRepo.ReservaRepository.cancelBooking(numeroReserva);
     }
 
