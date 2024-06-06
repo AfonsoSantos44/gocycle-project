@@ -7,18 +7,17 @@ import isel.sisinf.model.dto.ClienteDTO;
 
 public class ClienteService {
 
-    private static int nextNumeroCliente = 1;
+    private static int numeroCliente = ClientRepo.ClienteRepository.listClientes().size() +1;
 
     public void createClient(Cliente cliente)
     {
         Cliente clienteEntity = convertToEntity(cliente);
         ClientRepo.ClienteRepository.addCliente(clienteEntity);
-        System.out.println("Cliente adicionado com sucesso");
-        nextNumeroCliente++;
+        System.out.println("Cliente adicionado com sucesso");;
     }
 
     private Cliente convertToEntity(Cliente cliente) {
-        return new Cliente(nextNumeroCliente, cliente.getNome(), cliente.getMorada(), cliente.getNumeroTelefone(), cliente.getEnderecoEletronico(), cliente.getNumeroCCPassaporte(), cliente.getNacionalidade());
+        return new Cliente(numeroCliente, cliente.getNome(), cliente.getMorada(), cliente.getNumeroTelefone(), cliente.getEnderecoEletronico(), cliente.getNumeroCCPassaporte(), cliente.getNacionalidade());
     }
 
 }

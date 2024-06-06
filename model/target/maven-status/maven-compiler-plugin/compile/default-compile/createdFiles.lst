@@ -1,6 +1,5 @@
 isel\sisinf\model\dto\ClienteDTO.class
 isel\sisinf\model\Core.class
-isel\sisinf\model\dto\LojaDTO.class
 isel\sisinf\model\dto\ReservaDTO.class
 isel\sisinf\model\dto\BicicletaDTO.class
 isel\sisinf\model\dto\DispositivoGPSDTO.class

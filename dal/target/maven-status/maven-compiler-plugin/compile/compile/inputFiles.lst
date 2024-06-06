@@ -1,10 +1,8 @@
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\service\DispositivoGPSService.java
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\repo\ClientRepo.java
-C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\entity\Loja.java
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\service\LojaService.java
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\repo\ReservaRepo.java
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\repo\DispositivoGPSRepo.java
-C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\repo\ILojaRepo.java
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\entity\Cliente.java
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\service\BicicletaService.java
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\entity\Reserva.java
@@ -15,4 +13,3 @@ C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\si
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\service\ReservaService.java
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\repo\BicicletaRepo.java
 C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\entity\Bicicleta.java
-C:\Users\reiaf\Downloads\project-sisnf\gocycle-project\dal\src\main\java\isel\sisinf\jpa\dal\repo\IRespository.java

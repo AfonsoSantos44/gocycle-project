@@ -6,6 +6,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.util.Collection;
+import java.util.Collections;
+
 public class ClientRepo{
 
 
@@ -23,6 +26,15 @@ public class ClientRepo{
             em.persist(cliente);
             em.getTransaction().commit();
             em.close();
+        }
+
+        static Collection<Object> listClientes() {
+            EntityManager em = Dal.getEntityManager();
+            try {
+                return Collections.singleton(em.createQuery("SELECT c FROM Cliente c", Cliente.class).getResultList());
+            } finally {
+                Dal.closeEntityManager(em);
+            }
         }
     }
     }
