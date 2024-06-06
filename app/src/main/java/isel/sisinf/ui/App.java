@@ -32,10 +32,6 @@ import isel.sisinf.jpa.dal.repo.ReservaRepo;
 import isel.sisinf.jpa.dal.service.BicicletaService;
 import isel.sisinf.jpa.dal.service.ClienteService;
 import isel.sisinf.jpa.dal.service.ReservaService;
-import isel.sisinf.model.dto.BicicletaDTO;
-import isel.sisinf.model.dto.ClienteDTO;
-import isel.sisinf.model.dto.ReservaDTO;
-import org.glassfish.jaxb.core.v2.TODO;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -46,7 +42,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 interface DbWorker
 {
@@ -419,7 +414,7 @@ class UI
 
         // Proceed with cancellation
         ReservaService reservaService = new ReservaService();
-        reservaService.cancelBooking(Integer.valueOf(bookingNumber));
+        reservaService.removeBooking(Integer.valueOf(bookingNumber));
 
         System.out.println("Booking cancelled successfully.");
     }
