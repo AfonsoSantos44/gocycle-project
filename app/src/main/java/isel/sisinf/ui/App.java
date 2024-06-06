@@ -163,37 +163,85 @@ class UI
     
     */
 
-    private static final int TAB_SIZE = 24;
-
     private void createCostumer() {
-
         Scanner scanner = new Scanner(System.in);
+
+        // Prompting user for customer details
         System.out.println("Enter customer name:");
         String name = scanner.nextLine();
+
         System.out.println("Enter customer address:");
         String address = scanner.nextLine();
+
         System.out.println("Enter customer email:");
         String email = scanner.nextLine();
+
+        // check if email is valid
+        if (!isValidEmail(email)) {
+            System.out.println("Error: Invalid email format. Please enter a valid email.");
+            return;
+        }
+
         System.out.println("Enter customer phone number:");
         String phone = scanner.nextLine();
-        System.out.println("Enter customer numero do CC ou Passaporte:");
+
+        // Validating phone number format
+        if (!isValidPhoneNumber(phone)) {
+            System.out.println("Error: Invalid phone number format. Please enter a valid phone number.");
+            return;
+        }
+
+        System.out.println("Enter customer ID number or Passport number:");
         String numeroCCPassaporte = scanner.nextLine();
-        System.out.println("Enter customer nacionalidade:");
-        String nacionalidade = scanner.nextLine();
 
+        // Validating ID number format
+        if (!isValidIDNumberFormat(numeroCCPassaporte)) {
+            System.out.println("Error: Invalid ID number format. Please enter a valid ID number.");
+            return;
+        }
 
+        // Checking if a customer with the same ID number already exists in the database
+        ClienteService clienteService = new ClienteService();
+        boolean exists = clienteService.checkIfExistsCCPassaporte(numeroCCPassaporte);
+        if (exists) {
+            System.out.println("Error: A customer with the same ID number already exists in the database.");
+            return;
+        }
+
+        System.out.println("Enter customer nationality:");
+        String nationality = scanner.nextLine();
+
+        // Creating a new customer object
         Cliente cliente = new Cliente();
         cliente.setNome(name);
         cliente.setMorada(address);
         cliente.setEnderecoEletronico(email);
         cliente.setNumeroTelefone(phone);
         cliente.setNumeroCCPassaporte(numeroCCPassaporte);
-        cliente.setNacionalidade(nacionalidade);
+        cliente.setNacionalidade(nationality);
 
-        ClienteService clienteService = new ClienteService();
+        // Saving the new customer to the database
         clienteService.createClient(cliente);
 
         System.out.println("Customer created successfully!");
+    }
+
+    // Auxiliary method to validate email format
+    private boolean isValidEmail(String email) {
+        // Email must have the following format: <string>@<string>.<string>
+        return email.matches("\\w+@\\w+\\.\\w+");
+    }
+
+    // Auxiliary method to validate phone number format
+    private boolean isValidPhoneNumber(String phone) {
+        // Phone number must have 9 digits
+        return phone.matches("\\d{9}");
+    }
+
+    // Auxiliary method to validate ID number format
+    private boolean isValidIDNumberFormat(String idNumber) {
+        // ID number must have 8 digits
+        return idNumber.matches("\\d{8}");
     }
 
     private void listExistingBikes() {
@@ -400,9 +448,6 @@ class UI
     }
 
      */
-
-
-
 
     private void about()
     {

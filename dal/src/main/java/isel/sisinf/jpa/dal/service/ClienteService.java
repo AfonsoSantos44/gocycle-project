@@ -2,7 +2,6 @@ package isel.sisinf.jpa.dal.service;
 
 import isel.sisinf.jpa.dal.entity.Cliente;
 import isel.sisinf.jpa.dal.repo.ClientRepo;
-import isel.sisinf.model.dto.ClienteDTO;
 
 import java.util.List;
 
@@ -18,12 +17,20 @@ public class ClienteService {
 
         // Adiciona o cliente ao repositório
         ClientRepo.ClienteRepository.addCliente(clienteEntity);
-        System.out.println("Cliente adicionado com sucesso");
     }
 
     private Cliente convertToEntity(Cliente cliente, int numeroCliente) {
         return new Cliente(numeroCliente, cliente.getNome(), cliente.getMorada(), cliente.getNumeroTelefone(), cliente.getEnderecoEletronico(), cliente.getNumeroCCPassaporte(), cliente.getNacionalidade());
     }
 
+    public boolean checkIfExistsCCPassaporte(String numeroCCPassaporte) {
+        List<Cliente> clientes = ClientRepo.ClienteRepository.listClientes();
+        for (Cliente cliente : clientes) {
+            if (cliente.getNumeroCCPassaporte().equals(numeroCCPassaporte)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
