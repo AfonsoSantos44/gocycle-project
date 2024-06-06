@@ -51,7 +51,8 @@ CREATE TABLE Reserva (
      numeroBicicleta INT NOT NULL,
      datainicio TIMESTAMP NOT NULL,
      datafim TIMESTAMP NOT NULL,
-     valorPagar DOUBLE PRECISION NOT NULL
+     valorPagar DOUBLE PRECISION NOT NULL,
+     version INT NOT NULL DEFAULT 1
 );
 
 end;

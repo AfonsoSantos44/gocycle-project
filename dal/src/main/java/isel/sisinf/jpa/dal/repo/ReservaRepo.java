@@ -4,12 +4,10 @@ import isel.sisinf.jpa.dal.entity.Bicicleta;
 import isel.sisinf.jpa.dal.entity.Cliente;
 import isel.sisinf.jpa.dal.entity.Dal;
 import isel.sisinf.jpa.dal.entity.Reserva;
-import isel.sisinf.model.dto.ReservaDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static isel.sisinf.jpa.dal.entity.Dal.getEntityManager;
@@ -77,7 +75,7 @@ public class ReservaRepo {
             }
         }
 
-         static void cancelBooking(Integer numeroReserva) {
+         static boolean cancelBooking(Integer numeroReserva) {
             EntityManager em = getEntityManager();
             EntityTransaction transaction = em.getTransaction();
             try {
@@ -111,7 +109,8 @@ public class ReservaRepo {
             } finally {
                 Dal.closeEntityManager(em);
             }
-        }
+             return false;
+         }
 
          static boolean customerExists(int customerId) {
             List<Cliente> customers = getEntityManager().createQuery("SELECT c FROM Cliente c", Cliente.class).getResultList();
@@ -122,6 +121,49 @@ public class ReservaRepo {
             }
             return false; // Customer not found
         }
+
+         static boolean cancelBookingWithOptimisticLocking(int bookingId) {
+            // Retrieve the booking from the database
+            Reserva reserva = ReservaRepo.ReservaRepository.getBookingById(bookingId);
+
+            if (reserva == null) {
+                System.out.println("Booking with ID " + bookingId + " does not exist.");
+                return false;
+            }
+
+            // Perform optimistic locking by checking the version
+            int currentVersion = reserva.getVersion();
+
+            // Retrieve the latest version of the booking from the database
+            Reserva latestReserva = ReservaRepo.ReservaRepository.getBookingById(bookingId);
+
+            // Check if the version has changed since we retrieved the booking
+            if (latestReserva.getVersion() != currentVersion) {
+                System.out.println("Failed to cancel booking. It may have been modified by another transaction.");
+                return false;
+            }
+
+            // Proceed with cancellation by incrementing the version
+            reserva.setVersion(currentVersion + 1); // Assuming there's a version column
+            boolean success = ReservaRepo.ReservaRepository.cancelBooking(bookingId);
+
+            if (!success) {
+                System.out.println("Failed to cancel booking due to an unexpected error.");
+                return false;
+            }
+
+            return true;
+        }
+
+        static Reserva getBookingById(int bookingId) {
+            EntityManager em = getEntityManager();
+            try {
+                return em.find(Reserva.class, bookingId);
+            } finally {
+                Dal.closeEntityManager(em);
+            }
+        }
+
     }
 
 }

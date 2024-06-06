@@ -16,16 +16,20 @@ public class Reserva {
     private LocalDateTime dataFim;
     private double valorPagar;
 
+    @Version
+    private int version;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "numerobicicleta", insertable = false, updatable = false)
     private Bicicleta bicicleta;
 
-    public Reserva(LocalDateTime dataInicio, LocalDateTime dataFim, double valorPagar, Integer numeroCliente, Integer bicicletaId) {
+    public Reserva(LocalDateTime dataInicio, LocalDateTime dataFim, double valorPagar, Integer numeroCliente, Integer bicicletaId,Integer version) {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.valorPagar = valorPagar;
         this.numeroCliente = numeroCliente;
         this.numerobicicleta = bicicletaId;
+        this.version = version;
     }
 
     public Reserva() {
@@ -35,6 +39,10 @@ public class Reserva {
 
     public LocalDateTime getDataInicio() {
         return dataInicio;
+    }
+
+    public int getVersion() {
+        return version;
     }
 
     public LocalDateTime getDataFim() {
@@ -62,6 +70,10 @@ public class Reserva {
 
     public void setNumeroReserva(Integer numeroReserva) {
         this.numeroReserva = numeroReserva;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public void setNumeroCliente(Integer numeroCliente) {

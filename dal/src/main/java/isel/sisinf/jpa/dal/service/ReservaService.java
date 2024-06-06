@@ -21,4 +21,8 @@ public class ReservaService
         ReservaRepo.ReservaRepository.cancelBooking(numeroReserva);
     }
 
+    public void cancellBookingWithOptimisticLock(Integer numeroReserva) {
+        ReservaRepo.ReservaRepository.cancelBookingWithOptimisticLocking(numeroReserva);
+    }
+
 }
