@@ -412,13 +412,26 @@ class UI
         System.out.println("Enter booking id:");
         String bookingNumber = scanner.nextLine();
 
+        // Check if the entered booking ID is in the list of presented bookings
+        boolean isBookingIdValid = false;
+        for (Object[] reservation : reservations) {
+            if (reservation[0].toString().equals(bookingNumber)) {
+                isBookingIdValid = true;
+                break;
+            }
+        }
+
+        if (!isBookingIdValid) {
+            System.out.println("Invalid booking ID. Please enter a valid booking ID from the list.");
+            return;
+        }
+
         // Proceed with cancellation
         ReservaService reservaService = new ReservaService();
         reservaService.removeBooking(Integer.valueOf(bookingNumber));
 
         System.out.println("Booking cancelled successfully.");
     }
-
 
     /*
     private void cancelBookingOptimisticLocking(){

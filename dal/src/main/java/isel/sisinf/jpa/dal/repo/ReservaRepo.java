@@ -75,7 +75,7 @@ public class ReservaRepo {
             }
         }
 
-         static boolean cancelBooking(Integer numeroReserva) {
+         static boolean removeBooking(Integer numeroReserva) {
             EntityManager em = getEntityManager();
             EntityTransaction transaction = em.getTransaction();
             try {
@@ -122,7 +122,7 @@ public class ReservaRepo {
             return false; // Customer not found
         }
 
-         static boolean cancelBookingWithOptimisticLocking(int bookingId) {
+        static boolean cancelBookingWithOptimisticLocking(int bookingId) {
             // Retrieve the booking from the database
             Reserva reserva = ReservaRepo.ReservaRepository.getBookingById(bookingId);
 
@@ -145,7 +145,13 @@ public class ReservaRepo {
 
             // Proceed with cancellation by incrementing the version
             reserva.setVersion(currentVersion + 1); // Assuming there's a version column
-            boolean success = ReservaRepo.ReservaRepository.cancelBooking(bookingId);
+
+            // Change the bike state to "em reserva" (reserved)
+            Bicicleta bike = reserva.getbicicleta();
+            bike.setEstado("em reserva");
+
+            // Remove the booking from the database
+            boolean success = ReservaRepo.ReservaRepository.removeBooking(bookingId);
 
             if (!success) {
                 System.out.println("Failed to cancel booking due to an unexpected error.");
@@ -154,6 +160,7 @@ public class ReservaRepo {
 
             return true;
         }
+
 
         static Reserva getBookingById(int bookingId) {
             EntityManager em = getEntityManager();

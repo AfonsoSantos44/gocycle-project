@@ -18,10 +18,10 @@ public class ReservaService
     }
 
     public void removeBooking(Integer numeroReserva) {
-        ReservaRepo.ReservaRepository.cancelBooking(numeroReserva);
+        ReservaRepo.ReservaRepository.removeBooking(numeroReserva);
     }
 
-    public void cancellBookingWithOptimisticLock(Integer numeroReserva) {
+    public void removeBookingWithOptimisticLock(Integer numeroReserva) {
         ReservaRepo.ReservaRepository.cancelBookingWithOptimisticLocking(numeroReserva);
     }
 
